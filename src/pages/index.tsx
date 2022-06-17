@@ -5,8 +5,6 @@ import { GetStaticProps } from "next";
 
 //medias
 import LogoBig from "../../public/img/bigLogo.svg";
-import HomeBG from "../../public/img/BgHeader.jpg";
-import Signature from "../../public/img/muskSignature.png";
 import MyFace from "../../public/img/me.png";
 import MyWorkBg from "../../public/img/BgWorks.jpg";
 
@@ -23,6 +21,7 @@ import WorkSlider from "../components/workSlider/workslider";
 import {
   getCompetences,
   getExperiences,
+  getHomeData,
   getWork,
 } from "../services/wordpressApi";
 
@@ -35,20 +34,37 @@ import { CompetenceSection } from "../styles/competencesSection";
 import { ExperienceSection } from "../styles/experiencesSection";
 import { MyWorkSection } from "../styles/workSection";
 import { ContactSection } from "../styles/contactSection";
-import { ICompetenceCat } from "../interfaces/ICompétences";
+
+//interfaces
 import { IWPData } from "../interfaces/IWPData";
 
 export default function Page({
   competencesData,
   experiencesData,
   worksData,
+  homeData,
 }: IWPData) {
+  console.log(homeData.acf);
+
+  //destructuring homeData
+  const {
+    homebg,
+    citation,
+    citation_signature,
+    citation_author,
+    apropos_txt,
+    maphoto,
+    experience_txt,
+    travaux_bg,
+    contact_txt,
+  } = homeData.acf;
+
   return (
     <HomeStyle>
       <HomeSection id="home">
         <div className="bg">
           <Image
-            src={HomeBG}
+            src={homebg.url}
             layout="fill"
             objectFit="cover"
             objectPosition="bottom center"
@@ -70,48 +86,31 @@ export default function Page({
       <CitationSection id="citation">
         <div className="container">
           <p>
-            <q>
-              Réfléchissez constamment à la manière dont vous pourriez améliorer
-              les choses et vous remettre en question.
-            </q>
+            <q>{citation}</q>
           </p>
           <div className="separator"></div>
           <div className="signatureBox">
             <Image
-              src={Signature}
-              width={173}
-              height={36}
-              alt="Signature Elon Musk"
+              src={citation_signature.url}
+              width={citation_signature.width}
+              height={citation_signature.height}
+              alt={citation_signature.title}
             />
           </div>
-          <p className="signatureTitle">Elon Musk</p>
+          <p className="signatureTitle">{citation_author}</p>
         </div>
       </CitationSection>
       <BgBrownTriangle />
       <AproposSection id="apropos">
         <SectionTitle title="à propos de moi" color="var(--Blue)" />
         <div className="content">
-          <div className="presentation">
-            <p>
-              Voici donc les "Hashtags" qui me définiraient le plus. Après une
-              première formation de pâtissier-confiseur, je me suis reconvertis
-              professionnellement. Mon choix fut d'abord le graphisme. Puis,
-              après un passage à l'Eikon de Fribourg durant 2 ans, je suis tombé
-              amoureux du Développement. Je me suis donc consacré uniquement à
-              l'apprentissage des différents langages en autodidacte.
-            </p>
-            <p>
-              J'ai eu l'immense chance d'avoir pu travailler pour plusieurs
-              clients, ce qui m'a permis à chaque projets d'aller plus loin,
-              plus rapidement. En 2020-2021, j'ai réalisée une formation de
-              Développeur Front-end, où j'ai pu valider mes acquis et en
-              apprendre d'avantage sur le design et le développement de site web
-              et application web et mobile.
-            </p>
-          </div>
+          <div
+            className="presentation"
+            dangerouslySetInnerHTML={{ __html: apropos_txt }}
+          />
           <div className="MyFaceBox">
             <Image
-              src={MyFace}
+              src={maphoto.url}
               layout="fill"
               objectFit="contain"
               objectPosition="bottom"
@@ -130,16 +129,16 @@ export default function Page({
           title="expériences professionnelles"
           color="var(--Blue)"
         />
-        <p className="descrExp">
-          Vous trouverez ici tout les stages en entreprise réalisé, avec une
-          petite description des tâches effectuées.
-        </p>
+        <p
+          className="descrExp"
+          dangerouslySetInnerHTML={{ __html: experience_txt }}
+        />
         <ExperiencesAccordeon experiencesData={experiencesData} />
       </ExperienceSection>
       <MyWorkSection id="mes-travaux">
         <div
           className="background"
-          style={{ backgroundImage: `url(${MyWorkBg.src})` }}
+          style={{ backgroundImage: `url(${travaux_bg.url})` }}
         >
           <div className="content">
             <SectionTitle title="Réalisations" />
@@ -150,10 +149,7 @@ export default function Page({
       </MyWorkSection>
       <ContactSection id="contact">
         <SectionTitle title="Contactez-moi !" />
-        <p>
-          Merci d'avoir visiter mon site, je suis à votre dispositon pour tout
-          supp
-        </p>
+        <p dangerouslySetInnerHTML={{ __html: contact_txt }} />
         <ContactForm />
       </ContactSection>
     </HomeStyle>
@@ -168,12 +164,14 @@ export const getStaticProps: GetStaticProps = async () => {
   const _competencesData = await getCompetences();
   const _experiencesData = await getExperiences();
   const _worksData = await getWork();
+  const _homeData = await getHomeData();
 
   return {
     props: {
       competencesData: _competencesData,
       experiencesData: _experiencesData,
       worksData: _worksData,
+      homeData: _homeData,
     },
     revalidate: 60,
   };

@@ -31,3 +31,10 @@ export const getWorkBySlug = async (slug: string) => {
   const works = await data[0];
   return works;
 };
+export const getHomeData = async () => {
+  const { data } = await axios.get(
+    `https://${process.env.NEXT_PUBLIC_BACKEND_URL}/wp-json/wp/v2/pages/102`
+  );
+  const works = await data;
+  return works;
+};
