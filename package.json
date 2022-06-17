@@ -9,14 +9,29 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/nodemailer": "^6.4.4",
+    "@types/styled-components": "^5.1.25",
+    "@types/wordpress__block-library": "^2.6.1",
+    "@types/yup": "^0.29.14",
+    "@wordpress/block-library": "^7.7.0",
+    "axios": "^0.27.2",
+    "formik": "^2.2.9",
     "next": "12.1.6",
+    "nodemailer": "^6.7.5",
+    "notiflix": "^3.2.5",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-accessible-accordion": "^5.0.0",
+    "react-circular-progressbar": "^2.0.4",
+    "react-dom": "18.1.0",
+    "styled-components": "^5.3.5",
+    "swiper": "^8.2.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "17.0.41",
     "@types/react": "18.0.12",
     "@types/react-dom": "18.0.5",
+    "babel-plugin-styled-components": "^2.0.7",
     "eslint": "8.17.0",
     "eslint-config-next": "12.1.6",
     "typescript": "4.7.3"
