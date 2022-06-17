@@ -44,8 +44,6 @@ export default function Page({
   worksData,
   homeData,
 }: IWPData) {
-  console.log(homeData.acf);
-
   //destructuring homeData
   const {
     homebg,

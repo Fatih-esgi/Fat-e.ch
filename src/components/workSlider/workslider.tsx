@@ -48,6 +48,7 @@ const WorkSlider = ({ worksData }: IWorksData) => {
                               src={work.acf.logo.url}
                               layout="fill"
                               objectFit="contain"
+                              alt="logo de l'entreprise"
                             />
                           </div>
                         ) : (
