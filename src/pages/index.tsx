@@ -5,8 +5,6 @@ import { GetStaticProps } from "next";
 
 //medias
 import LogoBig from "../../public/img/bigLogo.svg";
-import MyFace from "../../public/img/me.png";
-import MyWorkBg from "../../public/img/BgWorks.jpg";
 
 //components
 import BgBrownTriangle from "../components/BgBrownTriangle/BgBrownTriangle";
