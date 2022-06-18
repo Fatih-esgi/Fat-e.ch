@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { transporter } from "../../config/nodeMailConfig";
+import { transporter } from "../../../config/nodeMailConfig";
 
 export default function async(req: NextApiRequest, res: NextApiResponse) {
   const { email, firstName, lastName, message, telephone } = req.body;
